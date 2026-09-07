@@ -182,7 +182,7 @@ button {
 
 .pawn.small {
   width: 2.9cm;
-  grid-template-rows: 0.9cm 1cm 0.9cm 1cm;
+  grid-template-rows: 2.9cm 1cm 2.9cm 1cm;
 }
 
 .pawn.small .mirror {
@@ -191,29 +191,29 @@ button {
 
 .pawn.medium {
   width: 2.9cm;
-  grid-template-rows: 2.9cm 1cm 2.9cm 1cm;
+  grid-template-rows: 4.9cm 1cm 4.9cm 1cm;
 }
 
 .pawn.medium .mirror {
-  grid-template-rows: 2.9cm 1cm;
+  grid-template-rows: 4.9cm 1cm;
 }
 
 .pawn.large {
   width: 4.9cm;
-  grid-template-rows: 4.4cm 1cm 4.4cm 1cm;
+  grid-template-rows: 6.4cm 1cm 6.4cm 1cm;
 }
 
 .pawn.large .mirror {
-  grid-template-rows: 4.4cm 1cm;
+  grid-template-rows: 6.4cm 1cm;
 }
 
 .pawn.huge {
   width: 7.6cm;
-  grid-template-rows: 7.9cm 1cm 7.9cm 1cm;
+  grid-template-rows: 9.9cm 1cm 9.9cm 1cm;
 }
 
 .pawn.huge .mirror {
-  grid-template-rows: 7.9cm 1cm;
+  grid-template-rows: 9.9cm 1cm;
 }
 
 /* === Print === */
