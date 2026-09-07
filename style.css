@@ -1,0 +1,240 @@
+/* === Base === */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+  max-width: 80ch;
+  padding: 1rem;
+  line-height: 1.4;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+header p {
+  margin-top: 0.25rem;
+  color: #555;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* === Form === */
+
+#pawn-form p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#pawn-form label,
+#image-label {
+  font-weight: bold;
+  min-width: 4em;
+}
+
+#pawn-form input[type="text"],
+#pawn-form input[type="number"],
+#pawn-form select {
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+}
+
+#pawn-count {
+  width: 5em;
+}
+
+#drop-zone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 2px dashed #888;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #555;
+  background: #fafafa;
+}
+
+#drop-zone.dragover {
+  border-color: #06c;
+  color: #06c;
+  background: #eef5ff;
+}
+
+#drop-zone:focus-visible {
+  outline: 2px solid #06c;
+  outline-offset: 2px;
+}
+
+#image-preview {
+  max-width: 3rem;
+  max-height: 3rem;
+}
+
+/* === Pawn list controls === */
+
+#pawn-controls {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#pawn-controls li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pawn-delete {
+  border: none;
+  background: none;
+  color: #c00;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
+
+/* === Sheet and pawns ===
+   One .pawn element = one printable pawn. The strip layout (top to bottom):
+   mirrored stand, mirrored image, fold line, image, stand with the name.
+   All dimensions use cm so they print at true size. */
+
+#sheet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2cm;
+  align-items: flex-start;
+}
+
+.pawn {
+  border: 1px solid #000;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  display: grid;
+  background: #fff;
+}
+
+.pawn .stand {
+  height: 1cm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-top: 1px dashed #000;
+}
+
+.pawn .mirror .stand {
+  border-top: none;
+  border-bottom: 1px dashed #000;
+}
+
+.pawn .name {
+  font-size: 0.35cm;
+  line-height: 1;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+/* The art box has a fixed height per size (see the size rules below). The
+   grid track must not grow or shrink with its content so the pawn always
+   prints at its exact size. */
+.pawn .art {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* The image is scaled to fit into the art box and keeps its aspect ratio.
+   It is taken out of the layout flow so its intrinsic size cannot force
+   the box taller or wider than its class-defined dimensions. */
+.pawn .art img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* The mirrored half spans the first two rows of the pawn grid (its own art
+   box and stand) and is flipped upside down so both image tops meet at the
+   fold line between the two halves. */
+.pawn .mirror {
+  transform: scaleY(-1);
+  display: grid;
+  grid-row: span 2;
+}
+
+/* Pawn sizes: Small 2.9x2.9, Medium 2.9x4.9, Large 4.9x6.4, Huge 7.6x9.9
+   (width x total height in cm). The art box is the pawn box minus the 1cm
+   stand; the mirrored half repeats the same art box and stand. */
+
+.pawn.small {
+  width: 2.9cm;
+  grid-template-rows: 0.9cm 1cm 0.9cm 1cm;
+}
+
+.pawn.small .mirror {
+  grid-template-rows: 0.9cm 1cm;
+}
+
+.pawn.medium {
+  width: 2.9cm;
+  grid-template-rows: 2.9cm 1cm 2.9cm 1cm;
+}
+
+.pawn.medium .mirror {
+  grid-template-rows: 2.9cm 1cm;
+}
+
+.pawn.large {
+  width: 4.9cm;
+  grid-template-rows: 4.4cm 1cm 4.4cm 1cm;
+}
+
+.pawn.large .mirror {
+  grid-template-rows: 4.4cm 1cm;
+}
+
+.pawn.huge {
+  width: 7.6cm;
+  grid-template-rows: 7.9cm 1cm 7.9cm 1cm;
+}
+
+.pawn.huge .mirror {
+  grid-template-rows: 7.9cm 1cm;
+}
+
+/* === Print === */
+
+@media print {
+  header,
+  #pawn-form-section,
+  #list-heading,
+  #empty-message,
+  #pawn-controls,
+  #print-button {
+    display: none;
+  }
+
+  body {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #sheet {
+    gap: 0;
+  }
+}
