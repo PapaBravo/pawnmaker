@@ -186,7 +186,7 @@ button {
 }
 
 .pawn.small .mirror {
-  grid-template-rows: 0.9cm 1cm;
+  grid-template-rows: 2.9cm 1cm;
 }
 
 .pawn.medium {
